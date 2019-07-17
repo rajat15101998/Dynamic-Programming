@@ -1,0 +1,96 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG4
+ {
+	public static void main (String[] args) throws Exception
+	 {
+	   try{
+
+	    	//Scanner s=new Scanner(System.in);
+	 	InputStreamReader r=new InputStreamReader(System.in);    
+                BufferedReader br=new BufferedReader(r); 
+
+	        int t = Integer.parseInt(br.readLine());
+	     
+	     while(t>0)
+	     {
+	         int n = Integer.parseInt(br.readLine());
+	         int w = Integer.parseInt(br.readLine());
+
+	         String line1 = br.readLine(); // to read multiple integers line
+	         String line2 = br.readLine(); // to read multiple integers line
+             String[] strs1 = line1.trim().split("\\s+");
+             String[] strs2 = line2.trim().split("\\s+");
+
+	         int[] weight=new int[n];
+	         int[] value=new int[n];
+
+             //take input for values
+             for(int i=0; i<n; i++)
+	         {
+	         	value[i] = Integer.parseInt(strs1[i]);
+	         }
+
+             //take input for weights
+	         for(int i=0; i<n; i++)
+	         {
+	         	weight[i] = Integer.parseInt(strs2[i]);
+	         }
+
+            //make a 2d dp array for 0/1 knapsack
+	         int[][] dp=new int[n][w+1];
+	         //fill the 1st column as 0 bcz agar total weight 0 hoga then ans will be sure 0
+	         for(int i=0; i<n; i++)
+	         {
+	         	dp[i][0]=0;
+	         }
+
+	         //fill the 1st row with the value of 1st weight
+	         for(int i=1; i<=w; i++)
+	         {
+	         	if(i >= weight[0])
+	         		dp[0][i]=value[0];
+	         	else
+	         		dp[0][i]=0;
+	         }
+
+	         //now write the dp approach
+	         for(int i=1; i<n; i++)
+	         {
+	         	for(int j=1; j<=w; j++)
+	         	{
+	         		if(j >= weight[i])
+	         		   dp[i][j]=Math.max((value[i]+dp[i-1][j-weight[i]]) , dp[i-1][j]);
+	         		else
+	         			dp[i][j]=dp[i-1][j];
+	         	}
+	         }
+	         
+
+
+
+	         //print the dp array
+	         // for(int i=0; i<n; i++)
+	         // {
+	         // 	for(int j=0; j<=w; j++)
+	         // 	{
+	         // 		System.out.print(dp[i][j]+" ");
+	         // 	}
+	         // 	 System.out.println();
+	         // }
+	         
+	           System.out.println(dp[n-1][w]);
+	              
+	         t--;
+	     }
+
+	    }
+        catch (NumberFormatException e) {
+        
+    }
+	     
+	     
+	 }
+}

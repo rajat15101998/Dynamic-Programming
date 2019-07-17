@@ -1,0 +1,57 @@
+import java.lang.*;
+import java.io.*;
+class GFG
+ {
+	public static void main (String[] args) throws Exception
+	 {
+	    
+	     try
+	     {
+	         InputStreamReader r=new InputStreamReader(System.in);    
+             BufferedReader br=new BufferedReader(r); 
+
+	         int t = Integer.parseInt(br.readLine());
+	         
+	         while(t-- >0)
+	       {
+	          int n = Integer.parseInt(br.readLine());
+	          
+	          String line = br.readLine(); // to read multiple integers line
+	          String[] strs = line.trim().split("\\s+");
+	          int[] arr=new int[n];
+	          for(int i=0; i<n; i++)
+	          {
+	             arr[i]=Integer.parseInt(strs[i]);
+	          }
+	         
+	          int maxsofar=0;
+	          int currentsum=0;
+	          int max=Integer.MIN_VALUE;
+	          for(int i=0; i<n; i++)
+	          {
+	             currentsum+=arr[i];
+	             if(currentsum < 0)
+	                currentsum=0;
+	             if(currentsum > maxsofar)
+	                maxsofar=currentsum;
+	             if(arr[i] > max)
+	                max=arr[i];
+	          }
+	         
+	           if(maxsofar > 0)
+	              System.out.println(maxsofar);
+	           else
+	              System.out.println(max);
+                           
+	        } 
+	     }
+	     
+	     catch (NumberFormatException e)
+	     {
+             
+         }
+	     
+	     
+	     
+	 }
+}

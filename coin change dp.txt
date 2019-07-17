@@ -1,0 +1,76 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG4
+ {
+	public static void main (String[] args)
+	 {
+	     Scanner s=new Scanner(System.in);
+	     int t=s.nextInt();
+	     
+	     while(t>0)
+	     {
+	         int m=s.nextInt();
+	         int[] coin=new int[m];
+	         for(int  i=0; i<m; i++)
+	         {
+	             coin[i]=s.nextInt();
+	         }
+	         int n=s.nextInt();
+
+	         Arrays.sort(coin);
+
+	         int[][] dp=new int[m][n+1];
+	         
+	         //1st column as 0
+	         for(int i=0; i<m; i++)
+	         {
+	         	dp[i][0]=0;
+	         }
+
+	         //fill the 1st row
+	         for(int i=1; i<=n; i++)
+	         {
+	         	if(i%coin[0]==0)
+	         		dp[0][i]=1;
+	         	else
+	         		dp[0][i]=0;
+	         }
+
+	         for(int i=1; i<m; i++)
+	         {
+	         	for(int j=1; j<=n; j++)
+	         	{
+	         		if(j>=coin[i])
+	         		{
+	         			//dp[i][j]=Math.max(dp[i-1][j], 1+dp[i][j-coin[i]]);
+	         			dp[i][j]=dp[i-1][j] + dp[i][j-coin[i]];
+	         		}
+	         		else
+	         			dp[i][j]=dp[i-1][j];
+	         		
+	         		if(j==coin[i])
+	         			dp[i][j]++;
+	         		
+	         	}
+	         }
+
+	         //print the dp array
+	         // for(int i=0; i<m; i++)
+	         // {
+	         // 	for(int j=0; j<=n; j++)
+	         // 	{
+	         // 		System.out.print(dp[i][j]+" ");
+	         // 	}
+	         // 	 System.out.println();
+	         // }
+	         
+	           System.out.println(dp[m-1][n]);
+	              
+	         t--;
+	     }
+	     
+	     
+	 }
+}

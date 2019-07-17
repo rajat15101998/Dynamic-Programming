@@ -1,0 +1,51 @@
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) {
+		
+	 Scanner s=new Scanner(System.in);
+	 int t=s.nextInt();
+	 
+	 long[] ugly=new long[10000];
+	     ugly[0]=1;
+	     
+	     int i2=0,i3=0,i5=0;
+	     
+	     for(int j=1; j<10000; j++)
+	     {
+	         long next2=ugly[i2]*2;
+	         long next3=ugly[i3]*3;
+	         long next5=ugly[i5]*5;
+	         
+	         long x=Math.min(next2,next3);
+	         long y=Math.min(x,next5);
+	         
+	         ugly[j]=y;
+	         
+	         if(ugly[j]==next2)
+	             i2++;
+	             
+	         if(ugly[j]==next3)
+	             i3++;
+	             
+	         if(ugly[j]==next5)
+	             i5++;
+	             
+	     }
+	     
+	 for(int i=0; i<t; i++)
+	 {
+	     int n=s.nextInt();
+	     
+	     
+	     
+	        System.out.println(ugly[n-1]);
+	 }
+		
+		
+		
+	}
+}
